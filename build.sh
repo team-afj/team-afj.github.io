@@ -1,3 +1,5 @@
+!/bin/bash
+
 PLUGINS=(markdown-notices
   twig-extensions
   shortcode-gallery-plusplus

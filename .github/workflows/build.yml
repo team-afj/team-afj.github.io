@@ -23,7 +23,7 @@ jobs:
         php_extensions: zip zlib openssl json curl intl gd mbstring dom libxml
 
     - name: Copy AFJ content and generate static version
-      run: sh build.sh
+      run: ./build.sh
     
     - name: Deploy to GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2
