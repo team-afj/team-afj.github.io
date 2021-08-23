@@ -32,7 +32,7 @@ jobs:
       uses: crazy-max/ghaction-github-pages@v2
       with:
         # Build directory to deploy
-        build_dir: webroot/user/data/persist
+        build_dir: webroot/grav/user/data/persist
         # Allow Jekyll to build your site
         jekyll: false
         # Enable verbose output
