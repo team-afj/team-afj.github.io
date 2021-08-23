@@ -1,0 +1,38 @@
+name: Static build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Cache Composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: /tmp/composer-cache
+        key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+    - name: Grav installation
+      uses: php-actions/composer@v6
+      with:
+        command: create-project
+        args: getgrav/grav webroot/grav 1.7.x
+        php_extensions: ext-json ext-curl ext-intl ext-gd ext-mbstring ext-dom ext-libxml
+
+    - name: Copy AFJ content and generate static version
+      run: sh build.sh
+    
+    - name: Deploy to GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        # Build directory to deploy
+        build_dir: webroot/user/data/persist
+        # Allow Jekyll to build your site
+        jekyll: false
+        # Enable verbose output
+        verbose: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
