@@ -20,7 +20,7 @@ jobs:
       with:
         command: create-project
         args: getgrav/grav webroot/grav 1.7.x
-        php_extensions: json curl intl gd mbstring dom libxml
+        php_extensions: zip zlib openssl json curl intl gd mbstring dom libxml
 
     - name: Copy AFJ content and generate static version
       run: sh build.sh
