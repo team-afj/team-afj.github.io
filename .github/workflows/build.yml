@@ -23,7 +23,7 @@ jobs:
         php_extensions: zip zlib openssl json curl intl gd mbstring dom libxml
     
     - name: Set permissions
-      run: chmod -R 777 webroot/grav
+      run: ls -al webroot/grav
 
     - name: Copy AFJ content and generate static version
       run: ./build.sh
