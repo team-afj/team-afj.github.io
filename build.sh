@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 PLUGINS=(markdown-notices
   twig-extensions
