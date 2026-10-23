@@ -23,7 +23,7 @@ build: fetch-calendar
 # Rebuilds on each request. Note: the YOCaml server does not decode %20 in
 # URLs, so files with spaces in their names (posters, PDFs) show as missing;
 # use `make preview` to check those.
-serve
+serve:
 	dune exec bin/afj.exe -- watch --port $(PORT) $(TODAY_ARG)
 
 preview: build
