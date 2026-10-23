@@ -1,0 +1,66 @@
+{% macro nav_loop(items) %}
+  {% for p in items %}
+    <li class="menu-item">
+      {% if p.clickable %}
+        <a href="{{ p.url }}" class="{% if p.active %}active{% endif %}">{{ p.title }}</a>
+      {% else %}
+        <span class="menu-group {% if p.active %}active{% endif %}">{{ p.title }}</span>
+      {% endif %}
+      {% if p.children %}
+        <ul>{{ nav_loop(p.children) }}</ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+{% endmacro %}
+<section class="section hero for-title text-light overlay-dark-gradient"
+    style="background-image: url('/assets/images/hero.jpg'); overflow: hidden;">
+    <div class="image-overlay overlay-dark"></div>
+    <div class="hero-ball">
+        <img src="/assets/images/ball.svg" alt="" />
+    </div>
+    <section class="container text-center" style="z-index: 2">
+        <h1>{{ document.hero_title }}</h1>
+    </section>
+</section>
+
+<section id="start">
+    <section id="body-wrapper" class="section">
+        <section class="container grid-lg">
+            <div class="columns">
+                <div id="item" class="first-p-margin column {% if page.has_sidebar %}col-8 col-md-12{% else %}col-12{% endif %} extra-spacing">
+                    {{ yocaml_body | safe }}
+                </div>
+                {% if page.has_sidebar %}
+                <div id="sidebar" class="column col-4 col-md-12">
+                    <ul class="menu vertical-menu">
+                        {% if page.sidebar_files %}
+                        <h3 class="text-center">Téléchargements</h3>
+                        <li class="divider"></li>
+                        {% for section in page.sidebar_files %}
+                            {% if section.section_name %}
+                            <div class="menu-group">{{ section.section_name }}</div>
+                            {% endif %}
+                            {% for file in section.files %}
+                            <li class="menu-item">
+                                <a href="{{ file.url }}" target="_blank">
+                                    <i class="las la-lg {{ file.icon }}"></i>
+                                    {{ file.name }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% endif %}
+                        {% if document.book %}
+                        <h3 class="text-center">
+                            <a href="{{ document.book.url }}" class="no-link">{{ document.book.title }}</a>
+                        </h3>
+                        <li class="divider"></li>
+                        {{ nav_loop(document.book.children) }}
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+    </section>
+</section>

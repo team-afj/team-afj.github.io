@@ -1,0 +1,91 @@
+{% macro home_block(m, calendar) %}
+<div style="padding-left: 1rem; padding-right: 1rem;">
+  {% if m.kind == "button" %}
+    <section class="section modular-text bg-gray">
+      <section class="container center grid-lg">
+        <div class="center">
+          <a href="{{ m.link }}" target="{{ m.target }}">
+            <button class="btn btn-lg inline-block btn-{{ m.color }}">{{ m.content | safe }}</button>
+          </a>
+        </div>
+      </section>
+    </section>
+  {% else %}{% if m.kind == "calendar" %}
+    <div class="center">{{ m.content | safe }}</div>
+    <div class="event-list-tbl">
+      <table>
+        <tbody>
+        {% for y in calendar %}
+          <tr class="year-tr"><th>{{ y.year }}</th></tr>
+          {% for r in y.ranges %}
+            <tr class="head-tr"><th>{{ r.start }}<span class="las">&#xf105;</span> {{ r.end }}</th></tr>
+            {% for e in r.events %}
+              {% if e.link %}
+              <tr><td><a href="{{ e.link }}" target="_blank" rel="noopener">{{ e.summary }}</a></td></tr>
+              {% else %}
+              <tr><td>{{ e.summary }}</td></tr>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <section class="section modular-text bg-gray">
+      <section class="container grid-lg">
+        <h2>{{ m.title }}</h2>
+        <div class="columns left">
+          {% if m.image %}
+          <div class="column col-6 col-md-12">{{ m.content | safe }}</div>
+          <div class="column col-6 col-md-12">
+            <img src="{{ m.image }}" class="rounded" alt="{{ m.title }}" />
+          </div>
+          {% else %}
+          <div class="column col-12">{{ m.content | safe }}</div>
+          {% endif %}
+        </div>
+      </section>
+    </section>
+  {% endif %}{% endif %}
+</div>
+{% endmacro %}
+
+{% if home.hero %}
+<section class="section modular-hero hero {{ home.hero.hero_classes }}"
+    style="background-image: url('{{ home.hero.hero_image }}'); padding-bottom: 4rem;">
+    <div class="night">
+        <div class=" shooting-star"></div>
+        <div class=" shooting-star"></div>
+        <div class=" shooting-star"></div>
+    </div>
+    <div class="image-overlay"></div>
+    <section class="container columns grid-lg"
+        style="text-align: center; justify-content: center; align-items: center; padding-top: 1rem;">
+        {% if home.hero.hero_visual %}
+        <div class="column col-auto" style="max-width: 100%;">
+            <img src="{{ home.hero.hero_visual }}" width="400" style="max-width: 100%; height: auto;"
+                alt="Association Française de Jonglerie" title="Logo AFJ" />
+        </div>
+        {% endif %}
+        <div class="column">{{ home.hero.content | safe }}</div>
+    </section>
+</section>
+{% endif %}
+
+<section id="start">
+    <div class="container grid-lg bg-gray" style="padding-bottom: 1.5rem;">
+        <div class="columns col-gapless">
+            <div class="left column col-8 col-md-6 col-sm-12">
+                {% for m in home.left %}
+                    {{ home_block(m, home.calendar) }}
+                {% endfor %}
+            </div>
+            <div class="right column col-4 col-md-6 col-sm-12">
+                {% for m in home.right %}
+                    {{ home_block(m, home.calendar) }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

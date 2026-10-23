@@ -1,0 +1,89 @@
+{% macro nav_loop(items) %}
+  {% for p in items %}
+    <li class="menu-item">
+      {% if p.clickable %}
+        <a href="{{ p.url }}" class="{% if p.active %}active{% endif %}">{{ p.title }}</a>
+      {% else %}
+        <span class="menu-group {% if p.active %}active{% endif %}">{{ p.title }}</span>
+      {% endif %}
+      {% if p.children %}
+        <ul>{{ nav_loop(p.children) }}</ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+{% endmacro %}<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>{{ document.full_title }}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ document.description }}">
+    <meta property="og:title" content="{{ document.title }}">
+    <meta property="og:description" content="{{ document.description }}">
+    <meta property="og:image" content="{{ configuration.url }}/assets/theme/images/square_logo.jpg" />
+    <link rel="icon" type="image/png" href="/assets/theme/images/favicon.ico" />
+    <link rel="canonical" href="{{ document.canonical }}" />
+
+    <link rel="stylesheet" href="/assets/theme/dist/css/spectre.min.css">
+    <link rel="stylesheet" href="/assets/theme/dist/css/spectre-exp.min.css">
+    <link rel="stylesheet" href="/assets/theme/dist/css/spectre-icons.min.css">
+    <link rel="stylesheet" href="/assets/theme/dist/css/theme.min.css">
+    <link rel="stylesheet" href="/assets/theme/css/line-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/event-list.css">
+    <link rel="stylesheet" href="/assets/vendor/glightbox/glightbox.min.css">
+    <link rel="stylesheet" href="/assets/css/gallery.css">
+</head>
+<body id="top" class="{{ document.body_classes }}">
+    <div id="page-wrapper">
+        <section id="header" class="section">
+            <section class="container grid-lg">
+                <nav class="navbar">
+                    <section class="navbar-section logo">
+                        <a href="/" class="navbar-brand mr-10">
+                            <img src="/assets/theme/images/logo/afj.png" alt="{{ configuration.title }}" />
+                        </a>
+                    </section>
+                    <section class="navbar-section desktop-menu">
+                        <nav class="dropmenu animated">
+                            <ul>{{ nav_loop(document.nav) }}</ul>
+                        </nav>
+                    </section>
+                </nav>
+            </section>
+        </section>
+        <div class="mobile-menu">
+            <div class="button_container" id="toggle">
+                <span class="top"></span>
+                <span class="middle"></span>
+                <span class="bottom"></span>
+            </div>
+        </div>
+
+        {{ yocaml_body | safe }}
+    </div>
+
+    <section id="footer" class="section bg-gray">
+        <section class="container grid-lg">
+            <p>Site conçu par <a href="https://github.com/team-afj">l'équipe de l'AFJ</a>
+            en utilisant <a href="https://github.com/xhtmlboi/yocaml">YOCaml</a>.</p>
+        </section>
+    </section>
+
+    <div class="mobile-container">
+        <div class="overlay" id="overlay">
+            <div class="mobile-logo">
+                <a href="/" class="navbar-brand mr-10">
+                    <img src="/assets/theme/images/logo/afj.png" alt="{{ configuration.title }}" />
+                </a>
+            </div>
+            <nav class="overlay-menu static-tree">
+                <ul class="static-tree">{{ nav_loop(document.nav) }}</ul>
+            </nav>
+        </div>
+    </div>
+
+    <script src="/assets/vendor/glightbox/glightbox.min.js"></script>
+    <script src="/assets/js/site.js"></script>
+</body>
+</html>

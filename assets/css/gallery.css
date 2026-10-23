@@ -1,0 +1,28 @@
+/* Justified rows of 200px high thumbnails (replaces justifiedGallery): each
+   image keeps its aspect ratio and rows grow to fill the line. */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin: 1rem 0;
+}
+
+.gallery::after {
+    /* Keeps the last row from stretching. */
+    content: "";
+    flex-grow: 999;
+}
+
+.gallery a {
+    flex-grow: 1;
+    height: 200px;
+    min-width: 100px;
+}
+
+.gallery img {
+    height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    vertical-align: bottom;
+}
