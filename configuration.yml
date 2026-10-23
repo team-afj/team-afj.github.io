@@ -1,0 +1,8 @@
+title: AFJ
+url: https://afj.asso.fr
+description: Site de l'Association Française de Jonglerie
+# Body classes enabled in the former Grav theme configuration.
+body_classes:
+  - header-fixed
+  - header-animated
+  - sticky-footer

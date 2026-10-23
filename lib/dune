@@ -1,0 +1,13 @@
+(library
+ (name afj)
+ (libraries
+  yocaml
+  yocaml_yaml
+  yocaml_markdown
+  yocaml_jingoo
+  str
+  icalendar
+  ptime
+  uri))
+
+(include_subdirs qualified)

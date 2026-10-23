@@ -1,0 +1,6 @@
+(library
+ (name afj_test)
+ (inline_tests)
+ (preprocess
+  (pps ppx_expect))
+ (libraries afj yocaml))

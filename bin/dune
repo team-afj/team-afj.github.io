@@ -1,0 +1,3 @@
+(executable
+ (name afj)
+ (libraries afj yocaml yocaml_unix cmdliner unix))
